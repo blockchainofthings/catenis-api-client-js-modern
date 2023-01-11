@@ -11,8 +11,9 @@
     "preview": "vite preview",
     "clear-types": "rm -f src/*.d.ts",
     "types": "tsc",
-    "browser-ws": "cp inc/GlobalWebSocket.browser.js src/global/WebSocket.js",
-    "node-ws": "cp inc/GlobalWebSocket.node.js src/global/WebSocket.js",
+    "mk-src-global-dir": "[ ! -d src/global ] && mkdir src/global",
+    "browser-ws": "npm run mk-src-global-dir && cp inc/GlobalWebSocket.browser.js src/global/WebSocket.js",
+    "node-ws": "npm run mk-src-global-dir && cp inc/GlobalWebSocket.node.js src/global/WebSocket.js",
     "prepack": "npm run node-ws",
     "test": "npm run node-ws && mocha"
   },
