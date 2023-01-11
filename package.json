@@ -7,7 +7,9 @@
   "types": "dist/catenis-api-client.d.ts",
   "scripts": {
     "dev": "vite",
-    "build": "npm run browser-ws && vite build && npm rum types",
+    "build": "npm run browser-ws && npm run build-plain && npm run build-minified && npm rum types",
+    "build-plain": "vite build && mv dist/plain/* dist/ && rmdir dist/plain",
+    "build-minified": "vite build --mode minified && mv dist/minified/* dist/ && rmdir dist/minified",
     "preview": "vite preview",
     "clear-types": "rm -f src/*.d.ts",
     "types": "tsc",
