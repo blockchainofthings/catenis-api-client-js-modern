@@ -17,7 +17,10 @@
     "browser-ws": "npm run mk-src-global-dir && cp inc/GlobalWebSocket.browser.js src/global/WebSocket.js",
     "node-ws": "npm run mk-src-global-dir && cp inc/GlobalWebSocket.node.js src/global/WebSocket.js",
     "prepack": "npm run node-ws",
-    "test": "npm run node-ws && mocha"
+    "start-ctn-api-emulator": "catenis-api-emulator -qs && nohup catenis-api-emulator -s > /dev/null &",
+    "stop-ctn-api-emulator": "catenis-api-emulator -qs",
+    "test": "npm run start-ctn-api-emulator && npm run node-ws && mocha",
+    "pre-browser-test": "npm run start-ctn-api-emulator"
   },
   "engines": {
     "node": ">=18.0"
@@ -26,6 +29,7 @@
     "node": "IMPORTANT NOTE: to use with Node.js version 18.x, the --experimental-global-webcrypto flag needs to be set, which can be done via either the command line (e.g. node --experimental-global-webcrypto <script>) or the NODE_OPTIONS environment variable (e.g. NODE_OPTIONS='--experimental-global-webcrypto')"
   },
   "devDependencies": {
+    "catenis-api-emulator": "^1.0.0",
     "chai": "^4.3.7",
     "mocha": "^10.2.0",
     "typescript": "^4.9.3",

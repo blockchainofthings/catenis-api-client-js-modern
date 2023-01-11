@@ -47,6 +47,19 @@ export function suite(catenis, expect) {
             });
         });
 
+        after(async function () {
+            // Shutdown Catenis API emulator
+            try {
+                await fetch('http://localhost:3501/close', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+            }
+            catch (err) {}
+        });
+
         describe('Log message', function () {
             describe('no options', function () {
                 before(async function () {
