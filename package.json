@@ -1,0 +1,36 @@
+{
+  "name": "catenis-api-client-modern",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "exports": "./main.js",
+  "types": "dist/catenis-api-client.d.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run browser-ws && vite build && npm rum types",
+    "preview": "vite preview",
+    "clear-types": "rm -f src/*.d.ts",
+    "types": "tsc",
+    "browser-ws": "cp inc/GlobalWebSocket.browser.js src/global/WebSocket.js",
+    "node-ws": "cp inc/GlobalWebSocket.node.js src/global/WebSocket.js",
+    "prepack": "npm run node-ws",
+    "test": "npm run node-ws && mocha"
+  },
+  "engines": {
+    "node": ">=18.0"
+  },
+  "enginesComments": {
+    "node": "IMPORTANT NOTE: to use with Node.js version 18.x, the --experimental-global-webcrypto flag needs to be set, which can be done via either the command line (e.g. node --experimental-global-webcrypto <script>) or the NODE_OPTIONS environment variable (e.g. NODE_OPTIONS='--experimental-global-webcrypto')"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "typescript": "^4.9.3",
+    "vite": "^3.2.3"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.6",
+    "pako": "^2.1.0",
+    "ws": "^8.11.0"
+  }
+}
