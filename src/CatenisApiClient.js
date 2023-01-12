@@ -491,6 +491,7 @@ export class CatenisApiClient {
      * Call the Retrieve Message Progress API method.
      * @param {string} messageId ID of the ephemeral message (either a provisional or a cached message) for which to
      *                            return the processing progress.
+     * @return {Promise<RetrieveMessageProgressResult>}
      */
     async retrieveMessageProgress(messageId) {
         /**
