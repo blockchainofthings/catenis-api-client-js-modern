@@ -6567,6 +6567,118 @@ export function suite(catenis, expect) {
             });
         });
 
+        describe('Client with no device credentials', function () {
+            let apiClient3;
+
+            before(function () {
+                // Instantiate Catenis API client
+                apiClient3 = new CatenisApiClient({
+                    host: 'localhost:3500',
+                    secure: false
+                });
+            });
+
+            describe('public method', async function () {
+                before(async function () {
+                    // Set up Catenis API emulator
+                    const res = await fetch('http://localhost:3501/http-context', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            expectedRequest: {
+                                httpMethod: 'GET',
+                                apiMethodPath: 'messages/ofHWWukewgY7ZchGv2k3/origin',
+                                authenticate: false
+                            },
+                            requiredResponse: {
+                                data: JSON.stringify({
+                                    tx: {
+                                        txid: 'e80b97c1ee45da349f774e4e509c0ddce56003fa737ef37ab22e1b676fe4a9c8',
+                                        type: 'Settle Off-Chain Messages',
+                                        batchDoc: {
+                                            cid: 'QmT2kJRaShQbMEzjDVmqMtsjccqvUaemNNrXzkv6oVgi6d'
+                                        }
+                                    },
+                                    offChainMsgEnvelope: {
+                                        cid: 'Qmd7xeEwwmWrJpovmTYhCTRjpfRPr9mtDxj7VRscrcqsgP',
+                                        type: 'Log Message',
+                                        originDevice: {
+                                            pubKeyHash: '25f154093fe70c4a45518f858a1edececf208ee6',
+                                            deviceId: 'drc3XdxNtzoucpw9xiRp',
+                                            name: 'TstDev1',
+                                            prodUniqueId: 'ABC123',
+                                            ownedBy: {
+                                                company: 'Blockchain of Things',
+                                                contact: 'Cláudio de Castro',
+                                                domains: [
+                                                    'blockchainofthings.com',
+                                                    'catenis.io'
+                                                ]
+                                            }
+                                        }
+                                    }
+                                })
+                            }
+                        })
+                    });
+
+                    expect(res.ok).to.be.true;
+                });
+
+                it('should send the correct request and correctly retrieve the response', async function () {
+                    const result = await apiClient3.retrieveMessageOrigin('ofHWWukewgY7ZchGv2k3');
+
+                    expect(result).to.deep.equal({
+                        tx: {
+                            txid: 'e80b97c1ee45da349f774e4e509c0ddce56003fa737ef37ab22e1b676fe4a9c8',
+                            type: 'Settle Off-Chain Messages',
+                            batchDoc: {
+                                cid: 'QmT2kJRaShQbMEzjDVmqMtsjccqvUaemNNrXzkv6oVgi6d'
+                            }
+                        },
+                        offChainMsgEnvelope: {
+                            cid: 'Qmd7xeEwwmWrJpovmTYhCTRjpfRPr9mtDxj7VRscrcqsgP',
+                            type: 'Log Message',
+                            originDevice: {
+                                pubKeyHash: '25f154093fe70c4a45518f858a1edececf208ee6',
+                                deviceId: 'drc3XdxNtzoucpw9xiRp',
+                                name: 'TstDev1',
+                                prodUniqueId: 'ABC123',
+                                ownedBy: {
+                                    company: 'Blockchain of Things',
+                                    contact: 'Cláudio de Castro',
+                                    domains: [
+                                        'blockchainofthings.com',
+                                        'catenis.io'
+                                    ]
+                                }
+                            }
+                        }
+                    });
+                });
+            });
+
+            describe('private method', function () {
+                it('should fail trying to call the method', async function () {
+                    let error;
+
+                    try {
+                        await apiClient3.logMessage('Test message #1');
+                    }
+                    catch(err) {
+                        error = err;
+                    }
+
+                    expect(error).to.be.an.instanceof(TypeError)
+                    .that.include({
+                        message: 'Missing credentials for request authentication',
+                    });
+                });
+            });
+        });
+
         describe('Data compression', function () {
             describe('compression on', function () {
                 let apiClient3;
