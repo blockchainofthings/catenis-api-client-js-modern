@@ -16,7 +16,7 @@
     "mk-src-global-dir": "if [ ! -d src/global ]; then mkdir src/global; fi",
     "browser-ws": "npm run mk-src-global-dir && cp inc/GlobalWebSocket.browser.js src/global/WebSocket.js",
     "node-ws": "npm run mk-src-global-dir && cp inc/GlobalWebSocket.node.js src/global/WebSocket.js",
-    "prepack": "npm run node-ws",
+    "prepack": "npm run build && npm run test",
     "start-ctn-api-emulator": "catenis-api-emulator -qs && nohup catenis-api-emulator -s > /dev/null &",
     "stop-ctn-api-emulator": "catenis-api-emulator -qs",
     "test": "npm run start-ctn-api-emulator && npm run node-ws && mocha",
