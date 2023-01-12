@@ -13,7 +13,7 @@
     "preview": "vite preview",
     "clear-types": "rm -f src/*.d.ts",
     "types": "tsc",
-    "mk-src-global-dir": "[ ! -d src/global ] && mkdir src/global",
+    "mk-src-global-dir": "if [ ! -d src/global ]; then mkdir src/global; fi",
     "browser-ws": "npm run mk-src-global-dir && cp inc/GlobalWebSocket.browser.js src/global/WebSocket.js",
     "node-ws": "npm run mk-src-global-dir && cp inc/GlobalWebSocket.node.js src/global/WebSocket.js",
     "prepack": "npm run node-ws",
