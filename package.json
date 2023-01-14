@@ -1,6 +1,6 @@
 {
   "name": "catenis-api-client-modern",
-  "private": true,
+  "description": "Catenis API client for JavaScript, targeting both modern web browsers and the latest Node.js versions",
   "version": "1.0.0",
   "type": "module",
   "exports": "./main.js",
