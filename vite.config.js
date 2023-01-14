@@ -18,7 +18,7 @@ export default defineConfig(({command, mode}) => {
                     fileName: 'catenis-api-client'
                 },
                 outDir: 'dist/plain',
-                sourcemap: false,
+                sourcemap: true,
                 minify: false
             }
         };
