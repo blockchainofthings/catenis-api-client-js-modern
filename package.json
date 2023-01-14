@@ -5,6 +5,7 @@
   "type": "module",
   "exports": "./main.js",
   "types": "dist/catenis-api-client.d.ts",
+  "unpkg": "dist/catenis-api-client.min.js",
   "scripts": {
     "dev": "vite",
     "build": "npm run browser-ws && npm run build-plain && npm run build-minified && npm rum types",
